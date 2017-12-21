@@ -1,10 +1,7 @@
----
-sudo: required
-dist: trusty
 language: node_js
 node_js:
-  # LTS version
-  - "9.0"
+  - 6
+  - 8
 cache:
   directories:
     - node_modules
@@ -17,5 +14,5 @@ script:
 deploy:
   skip_cleanup: true
   provider: surge
-  project: ./static/
+  project: ./build/
   domain: burfield-nightlife.surge.sh
