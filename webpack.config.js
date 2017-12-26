@@ -6,7 +6,7 @@ const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') 
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: path.join(__dirname, '/src/index.html'),
-  filename: '200.html',
+  filename: 'index.html',
   inject: 'body',
 });
 
@@ -33,7 +33,9 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    historyApiFallback: true,
   },
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     path.join(__dirname, '/src/index.jsx'),
