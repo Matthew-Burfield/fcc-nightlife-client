@@ -1,13 +1,16 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "es6": true,
-    "mocha": true
-  },
-  "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "semi": 0
-  }
+	"extends": "airbnb",
+	"parser": "babel-eslint",
+	"env": {
+		"browser": true,
+		"es6": true,
+		"mocha": true
+	},
+	"rules": {
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"semi": 0,
+		"no-tabs": 0,
+		"indent": ["error", "tab"],
+		"arrow-parens": ["error", "as-needed"]
+	}
 }
