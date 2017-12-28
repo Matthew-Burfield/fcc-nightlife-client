@@ -1,3 +1,8 @@
+export const BASE_URL =
+	process.env.NODE_ENV === 'production'
+		? 'https://burfield-nightlife-server.herokuapp.com'
+		: 'http://localhost:8000'
+
 export const getAccessToken = () => {
 	if (window && window.localStorage && window.localStorage.fccvotingapp) {
 		return JSON.parse(window.localStorage.fccvotingapp).access_token

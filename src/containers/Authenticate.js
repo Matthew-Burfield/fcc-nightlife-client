@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { getLocalStorageValue, saveParamStringToLocalStorage } from '../utilities'
+import { BASE_URL, getLocalStorageValue, saveParamStringToLocalStorage } from '../utilities'
 
 class Authenticate extends Component {
 	componentDidMount() {
@@ -14,7 +14,7 @@ class Authenticate extends Component {
 			debugger
 		}
 		window.location.replace(
-			`http://localhost:8000/authenticate?token=${requestToken}&secret=${requestTokenSecret}&verifier=${requestVerifier}`
+			`${BASE_URL}/authenticate?token=${requestToken}&secret=${requestTokenSecret}&verifier=${requestVerifier}`
 		)
 	}
 
