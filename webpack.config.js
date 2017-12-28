@@ -14,6 +14,8 @@ const DefinePluginConfig = new webpack.DefinePlugin({
 	'process.env.NODE_ENV': JSON.stringify('production'),
 })
 
+const SourceMapDevToolPlugin = new webpack.SourceMapDevToolPlugin()
+
 const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
 	beautify: false,
 	mangle: {
@@ -27,15 +29,14 @@ const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
 
 module.exports = {
 	devServer: {
-		host: 'localhost',
-		port: '3000',
-		hot: true,
 		headers: {
 			'Access-Control-Allow-Origin': '*',
 		},
 		historyApiFallback: true,
+		host: 'localhost',
+		hot: true,
+		port: '3000',
 	},
-	devtool: 'source-map',
 	entry: ['react-hot-loader/patch', path.join(__dirname, '/src/index.jsx')],
 	module: {
 		loaders: [
@@ -67,6 +68,7 @@ module.exports = {
 	plugins: dev
 		? [
 				HTMLWebpackPluginConfig,
+				SourceMapDevToolPlugin,
 				new webpack.HotModuleReplacementPlugin(),
 				new webpack.NamedModulesPlugin(),
 			]
