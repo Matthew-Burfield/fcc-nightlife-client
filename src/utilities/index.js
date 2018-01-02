@@ -1,21 +1,13 @@
+import axios from 'axios'
+
 export const BASE_URL =
 	process.env.NODE_ENV === 'production'
 		? 'https://burfield-nightlife-server.herokuapp.com'
 		: 'http://localhost:8000'
 
-export const getAccessToken = () => {
-	if (window && window.localStorage && window.localStorage.fccvotingapp) {
-		return JSON.parse(window.localStorage.fccvotingapp).access_token
-	}
-	return null
-}
-
 export const getLocalStorageValue = value => {
-	if (window && window.localStorage && window.localStorage.nightlife) {
-		const nightlife = JSON.parse(window.localStorage.nightlife)
-		if (nightlife[value]) {
-			return nightlife[value]
-		}
+	if (window && window.localStorage && window.localStorage[value]) {
+		return window.localStorage[value]
 	}
 	return null
 }
@@ -50,4 +42,14 @@ export const saveParamStringToLocalStorage = paramsString => {
 		...params,
 	}
 	window.localStorage.nightlife = JSON.stringify(newParams)
+}
+
+export const registerForRestaurant = restaurantId => {
+	const userAccessId = getLocalStorageValue('access_token')
+	const userAccessSecret = getLocalStorageValue('access_secret')
+	axios.post(
+		`${BASE_URL}/register`,
+		{ id: restaurantId },
+		{ headers: { Authorization: `${userAccessId}.${userAccessSecret}` } }
+	)
 }
