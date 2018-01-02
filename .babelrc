@@ -1,3 +1,8 @@
-{ "presets": [ "react", ["env", { "modules": false }] ],
-  "plugins": [ "react-hot-loader/babel", "babel-plugin-transform-object-rest-spread" ]
+{
+	"presets": ["react", ["env", { "modules": false }]],
+	"plugins": [
+		"react-hot-loader/babel",
+		"babel-plugin-transform-object-rest-spread",
+		"transform-class-properties"
+	]
 }
