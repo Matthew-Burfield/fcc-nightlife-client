@@ -63,11 +63,18 @@ class Home extends Component {
 						fontSize: '50px',
 						textAlign: 'center',
 						verticalAlign: 'center',
+						color: 'white',
+						paddingTop: 50,
 					}}
 				>
-					Home Page
+					Free Code Camp Nightlife App
 				</div>
-				<div>
+				<div
+					style={{
+						padding: '100px 0 20px 0',
+						textAlign: 'center',
+					}}
+				>
 					<SearchBar onSearch={this.onSearch} />
 				</div>
 				<div>
