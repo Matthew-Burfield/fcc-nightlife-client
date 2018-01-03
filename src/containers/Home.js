@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import Restaurants from '../components/Restaurants'
-import { BASE_URL, registerForRestaurant } from '../utilities'
+import { BASE_URL, isUserSignedIn, registerForRestaurant } from '../utilities'
 import SearchBar from '../components/SearchBar'
 import backgroundImage from '../assets/background.jpg'
 
@@ -31,21 +31,25 @@ class Home extends Component {
 	}
 
 	onRegister = id => {
-		registerForRestaurant(id)
-			.then(result => {
-				if (result.status === 200) {
-					const newRestaurants = JSON.parse(JSON.stringify(this.state.restaurants))
-					const currentCount = newRestaurants[id].count
-					newRestaurants[id].count =
-						result.data === 'increased' ? currentCount + 1 : currentCount - 1
-					this.setState({ restaurants: newRestaurants })
-				} else {
-					console.error("Couldn't register to restaurant: ", result.status)
-				}
-			})
-			.catch(error => {
-				console.error(error)
-			})
+		if (isUserSignedIn()) {
+			registerForRestaurant(id)
+				.then(result => {
+					if (result.status === 200) {
+						const newRestaurants = JSON.parse(JSON.stringify(this.state.restaurants))
+						const currentCount = newRestaurants[id].count
+						newRestaurants[id].count =
+							result.data === 'increased' ? currentCount + 1 : currentCount - 1
+						this.setState({ restaurants: newRestaurants })
+					} else {
+						console.error("Couldn't register to restaurant: ", result.status)
+					}
+				})
+				.catch(error => {
+					console.error(error)
+				})
+		} else {
+			window.location.replace(`${BASE_URL}/login`)
+		}
 	}
 
 	render() {

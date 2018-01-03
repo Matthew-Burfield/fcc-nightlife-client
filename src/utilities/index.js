@@ -54,3 +54,13 @@ export const registerForRestaurant = restaurantId => {
 		{ headers: { Authorization: `${userAccessId}.${userAccessSecret}` } }
 	)
 }
+
+export const isUserSignedIn = () => {
+	const userAccessId = getLocalStorageValue('access_token')
+	const userAccessSecret = getLocalStorageValue('access_secret')
+
+	if (userAccessId && userAccessSecret) {
+		return true
+	}
+	return false
+}
