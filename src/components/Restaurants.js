@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 import { restaurantProps } from '../utilities/propTypes'
 import Restaurant from './Restaurant'
 
-const Restaurants = ({ restaurants }) => (
+const Restaurants = ({ register, restaurants }) => (
 	<div>
 		{Object.values(restaurants).map(restaurant => (
-			<Restaurant key={restaurants.id} {...restaurant} />
+			<Restaurant key={restaurants.id} register={register} {...restaurant} />
 		))}
 	</div>
 )
 
 Restaurants.propTypes = {
+	register: PropTypes.func.isRequired,
 	restaurants: PropTypes.shape(restaurantProps),
 }
 

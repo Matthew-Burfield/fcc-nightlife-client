@@ -1,16 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-import { registerForRestaurant } from '../utilities'
 import { restaurantProps } from '../utilities/propTypes'
 
 const Restaurant = props => (
 	<div>
 		<p>{props.name}</p>
-		<button onClick={() => registerForRestaurant(props.id)}>Current count: {props.count}</button>
+		<button onClick={() => props.register(props.id)}>Current count: {props.count}</button>
 	</div>
 )
 
 Restaurant.propTypes = {
+	register: PropTypes.func.isRequired,
 	...restaurantProps,
 }
 

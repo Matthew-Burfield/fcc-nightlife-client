@@ -13,6 +13,7 @@
 		"indent": ["error", "tab"],
 		"react/jsx-indent": ["error", "tab"],
 		"react/jsx-indent-props": ["error", "tab"],
-		"arrow-parens": ["error", "as-needed"]
+		"arrow-parens": ["error", "as-needed"],
+		"comma-dangle": 0
 	}
 }
