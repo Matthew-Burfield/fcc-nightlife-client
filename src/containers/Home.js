@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import Restaurants from '../components/Restaurants'
-import { BASE_URL, isUserSignedIn, registerForRestaurant } from '../utilities'
+import { BASE_URL, getSavedSearch, isUserSignedIn, registerForRestaurant } from '../utilities'
 import SearchBar from '../components/SearchBar'
 import backgroundImage from '../assets/background.jpg'
 
 class Home extends Component {
 	constructor(props) {
+		// If there is a saved search, retrieve it
+		const restaurants = getSavedSearch()
 		super(props)
 		this.state = {
-			restaurants: {},
+			restaurants,
 		}
 	}
 
@@ -48,6 +50,8 @@ class Home extends Component {
 					console.error(error)
 				})
 		} else {
+			// Before logging in, save the current search
+			window.localStorage.restaurants = JSON.stringify(this.state.restaurants)
 			window.location.replace(`${BASE_URL}/login`)
 		}
 	}

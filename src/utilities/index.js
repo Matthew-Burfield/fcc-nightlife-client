@@ -64,3 +64,12 @@ export const isUserSignedIn = () => {
 	}
 	return false
 }
+
+export const getSavedSearch = () => {
+	if (window && window.localStorage && window.localStorage.restaurants) {
+		const restaurants = window.localStorage.restaurants
+		delete window.localStorage.restaurants
+		return JSON.parse(restaurants)
+	}
+	return {}
+}
