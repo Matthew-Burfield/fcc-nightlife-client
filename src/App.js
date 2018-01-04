@@ -5,6 +5,7 @@ import Home from './containers/Home'
 import Login from './containers/Login'
 import Authenticate from './containers/Authenticate'
 import Access from './containers/Access'
+import Test from './containers/Test'
 
 const App = () => (
 	<Router>
@@ -13,6 +14,7 @@ const App = () => (
 			<Route path="/login" component={Login} />
 			<Route path="/authenticate" component={Authenticate} />
 			<Route path="/access" component={Access} />
+			<Route path="/test" component={Test} />
 		</Switch>
 	</Router>
 )
