@@ -15,4 +15,4 @@ deploy:
   skip_cleanup: true
   provider: surge
   project: ./build/
-  domain: burfield-nightlife.surge.sh
+  domain: https://burfield-nightlife.surge.sh
