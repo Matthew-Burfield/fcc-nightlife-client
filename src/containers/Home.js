@@ -1,10 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import Restaurants from '../components/Restaurants'
+import Restaurant from '../components/Restaurant'
 import { BASE_URL, getSavedSearch, isUserSignedIn, registerForRestaurant } from '../utilities'
 import SearchBar from '../components/SearchBar'
-import backgroundImage from '../assets/background.jpg'
+
+import Moon from '../assets/svg/Moon'
+import CityOne from '../assets/svg/CityOne'
+import CityTwo from '../assets/svg/CityTwo'
+import CityThree from '../assets/svg/CityThree'
+import CityFour from '../assets/svg/CityFour'
+import Diners from '../assets/svg/Diners'
+import Star from '../assets/svg/Star'
+
+import './home.scss'
+
+const parallaxSpeed = val => ({
+	transform: `translateZ(${val * -1}px) scale(${1 + val})`,
+})
+
+const getStyles = (val, top) => Object.assign({}, { top: `${top}px` }, parallaxSpeed(val))
 
 class Home extends Component {
 	constructor(props) {
@@ -56,37 +71,70 @@ class Home extends Component {
 		}
 	}
 
+	restaurantRender = props => (
+		<div className="parallaxLayerSearch" style={getStyles(2.2, props.index * 300 + 1100)}>
+			{props.photos && props.photos.length > 0 ? (
+				<div>
+					<img
+						style={{ borderRadius: 2 }}
+						height={100}
+						alt={'restaurant thumbnail'}
+						src={props.photos[0]}
+					/>
+				</div>
+			) : null}
+			<div>Name: {props.name}</div>
+			<div>Rating: {props.rating} / 5</div>
+			<button onClick={() => props.register(props.id)}>Current count: {props.count}</button>
+		</div>
+	)
+
 	render() {
 		return (
-			<div
-				style={{
-					height: '100vh',
-					width: '100vw',
-					backgroundImage: `url(${backgroundImage})`,
-				}}
-			>
-				<div
-					style={{
-						margin: '0 auto',
-						fontSize: '50px',
-						textAlign: 'center',
-						verticalAlign: 'center',
-						color: 'white',
-						paddingTop: 50,
-					}}
-				>
-					Free Code Camp Nightlife App
-				</div>
-				<div
-					style={{
-						padding: '100px 0 20px 0',
-						textAlign: 'center',
-					}}
-				>
-					<SearchBar onSearch={this.onSearch} />
-				</div>
-				<div>
-					<Restaurants restaurants={this.state.restaurants} register={this.onRegister} />
+			<div>
+				<div className="parallax">
+					<div className="parallaxGroup">
+						<div
+							className="parallaxLayer"
+							style={Object.assign({}, getStyles(2.8, 30), {
+								textAlign: 'left',
+								left: '40vw',
+							})}
+						>
+							<Moon />
+						</div>
+						<div className="parallaxLayer" style={getStyles(2.4, 29)}>
+							<CityFour />
+						</div>
+						<div className="parallaxLayer" style={getStyles(2.3, 129)}>
+							<CityThree />
+						</div>
+						<div className="parallaxLayer" style={getStyles(2.2, 209)}>
+							<CityTwo />
+						</div>
+						<div className="parallaxLayer" style={getStyles(2.1, 207)}>
+							<CityOne />
+						</div>
+						<div className="skyGradient" />
+						{/* // black floor board */}
+						<div className="parallaxLayer blackFloorboard" style={getStyles(2.2, 0)} />
+						<div className="parallaxLayer" style={getStyles(1.5, 170)}>
+							<Diners />
+						</div>
+						<div className="parallaxLayerSearch heading" style={getStyles(2.2, 600)}>
+							Nightlife
+							<SearchBar onSearch={this.onSearch} />
+						</div>
+						{Object.values(this.state.restaurants).map((restaurant, index) => (
+							<Restaurant
+								key={restaurant.id}
+								index={index}
+								register={this.onRegister}
+								render={this.restaurantRender}
+								{...restaurant}
+							/>
+						))}
+					</div>
 				</div>
 			</div>
 		)

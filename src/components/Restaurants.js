@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { restaurantProps } from '../utilities/propTypes'
 import Restaurant from './Restaurant'
 
-const Restaurants = ({ register, restaurants }) => (
+const Restaurants = ({ register, render, restaurants }) => (
 	<div
 		style={{
 			padding: '0 20px 0 20px',
@@ -13,17 +13,19 @@ const Restaurants = ({ register, restaurants }) => (
 		}}
 	>
 		{Object.values(restaurants).map(restaurant => (
-			<Restaurant key={restaurants.id} register={register} {...restaurant} />
+			<Restaurant key={restaurants.id} register={register} render={render} {...restaurant} />
 		))}
 	</div>
 )
 
 Restaurants.propTypes = {
 	register: PropTypes.func.isRequired,
+	render: PropTypes.func,
 	restaurants: PropTypes.shape(restaurantProps),
 }
 
 Restaurants.defaultProps = {
+	render: null,
 	restaurants: {},
 }
 
