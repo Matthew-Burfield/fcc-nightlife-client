@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Moon = ({ width, height }) => (
+const Moon = ({ scale }) => (
 	<svg
-		width={width}
-		height={height}
+		width={1158 * scale}
+		height={1183 * scale}
 		viewBox="0 0 1158 1183"
 		version="1"
 		xmlns="http://www.w3.org/2000/svg"
@@ -23,13 +23,11 @@ const Moon = ({ width, height }) => (
 )
 
 Moon.propTypes = {
-	width: PropTypes.number,
-	height: PropTypes.number,
+	scale: PropTypes.number,
 }
 
 Moon.defaultProps = {
-	width: 300,
-	height: 300,
+	scale: 0.1,
 }
 
 export default Moon
