@@ -28,14 +28,17 @@ class Home extends Component {
 		super(props)
 		this.state = {
 			restaurants,
+			isLoading: false,
 		}
 	}
 
 	onSearch = searchValue => {
 		window.localStorage.searchValue = searchValue
+		this.setState({ isLoading: true })
 		axios
 			.post(`${BASE_URL}/restaurants`, { location: searchValue })
 			.then(results => {
+				this.setState({ isLoading: false })
 				if (results.status === 200) {
 					this.setState({ restaurants: results.data })
 				} else {
@@ -43,6 +46,7 @@ class Home extends Component {
 				}
 			})
 			.catch(error => {
+				this.setState({ isLoading: false })
 				console.error(error)
 			})
 	}
@@ -73,13 +77,13 @@ class Home extends Component {
 
 	restaurantRender = props => (
 		<div className="parallaxLayerSearch" style={getStyles(2.2, props.index * 300 + 1100)}>
-			{props.photos && props.photos.length > 0 ? (
+			{props.image_url && props.image_url.length > 0 ? (
 				<div>
 					<img
 						style={{ borderRadius: 2 }}
 						height={100}
 						alt={'restaurant thumbnail'}
-						src={props.photos[0]}
+						src={props.image_url}
 					/>
 				</div>
 			) : null}
@@ -125,15 +129,23 @@ class Home extends Component {
 							Nightlife
 							<SearchBar onSearch={this.onSearch} />
 						</div>
-						{Object.values(this.state.restaurants).map((restaurant, index) => (
-							<Restaurant
-								key={restaurant.id}
-								index={index}
-								register={this.onRegister}
-								render={this.restaurantRender}
-								{...restaurant}
-							/>
-						))}
+						{this.state.isLoading ? (
+							<div className="parallaxLayer" style={getStyles(2.2, 1100)}>
+								Loading...
+							</div>
+						) : (
+							<div>
+								{Object.values(this.state.restaurants).map((restaurant, index) => (
+									<Restaurant
+										key={restaurant.id}
+										index={index}
+										register={this.onRegister}
+										render={this.restaurantRender}
+										{...restaurant}
+									/>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
