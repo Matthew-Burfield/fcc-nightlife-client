@@ -14,13 +14,17 @@ import CityFour from '../components/CityFour'
 import Diners from '../components/Diners'
 import Star from '../components/Star'
 
+import nachosImage from '../assets/nachos.png'
+import pizzaImage from '../assets/pizza.png'
+
 import './home.scss'
 
 const parallaxSpeed = val => ({
 	transform: `translateZ(${val * -1}px) scale(${1 + val})`,
 })
 
-const getStyles = (val, top) => Object.assign({}, { top: `${top}px` }, parallaxSpeed(val))
+const getStyles = (val, top, additionalStyles = {}) =>
+	Object.assign({}, { top: `${top}px` }, parallaxSpeed(val), additionalStyles)
 
 class Home extends Component {
 	constructor(props) {
@@ -106,13 +110,14 @@ class Home extends Component {
 	)
 
 	render() {
+		const restaurants = Object.values(this.state.restaurants)
 		return (
 			<div>
 				<div className="parallax">
 					<div className="parallaxGroup">
 						<div
 							className="parallaxLayer"
-							style={Object.assign({}, getStyles(2.8, 30), {
+							style={getStyles(2.8, 30, {
 								textAlign: 'left',
 								left: '40vw',
 							})}
@@ -137,6 +142,26 @@ class Home extends Component {
 						<div className="parallaxLayer" style={getStyles(1.5, 170)}>
 							<Diners />
 						</div>
+						{restaurants.length > 0 ? (
+							<div
+								className="parallaxLayer"
+								style={getStyles(6, 3000, {
+									textAlign: 'right',
+								})}
+							>
+								<img alt="pizza" src={pizzaImage} />
+							</div>
+						) : null}
+						{restaurants.length > 0 ? (
+							<div
+								className="parallaxLayer"
+								style={getStyles(6, 10000, {
+									textAlign: 'left',
+								})}
+							>
+								<img alt="nachos" src={nachosImage} />
+							</div>
+						) : null}
 						<div className="parallaxLayerSearch heading" style={getStyles(2.2, 600)}>
 							Nightlife
 							<SearchBar onSearch={this.onSearch} />
@@ -147,7 +172,7 @@ class Home extends Component {
 							</div>
 						) : (
 							<div>
-								{Object.values(this.state.restaurants).map((restaurant, index) => (
+								{restaurants.map((restaurant, index) => (
 									<Restaurant
 										key={restaurant.id}
 										index={index}
