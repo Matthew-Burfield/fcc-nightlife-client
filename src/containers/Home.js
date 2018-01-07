@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
 import axios from 'axios'
+import StarRating from 'react-stars'
+import React, { Component } from 'react'
 
 import Restaurant from '../components/Restaurant'
 import { BASE_URL, getSavedSearch, isUserSignedIn, registerForRestaurant } from '../utilities'
@@ -76,20 +77,31 @@ class Home extends Component {
 	}
 
 	restaurantRender = props => (
-		<div className="parallaxLayerSearch" style={getStyles(2.2, props.index * 300 + 1100)}>
-			{props.image_url && props.image_url.length > 0 ? (
+		<div
+			className="parallaxLayerSearch restaurant"
+			style={getStyles(2.2, props.index * 700 + 1300)}
+		>
+			<div className="restaurantContainer">
 				<div>
-					<img
-						style={{ borderRadius: 2 }}
-						height={100}
-						alt={'restaurant thumbnail'}
-						src={props.image_url}
-					/>
+					<div className="restaurantImage">
+						<img
+							style={{ borderRadius: 2 }}
+							height={100}
+							alt={'restaurant thumbnail'}
+							src={props.image_url && props.image_url.length > 0 ? props.image_url : ''} // TODO: add placeholder
+						/>
+					</div>
+					<div className="restaurantInfo">
+						<div className="restaurantName">Name: {props.name}</div>
+						<div className="innerContainer">
+							<StarRating className="starRating" value={props.rating} edit={false} />
+							<button className="restaurantButton" onClick={() => props.register(props.id)}>
+								Current count: {props.count}
+							</button>
+						</div>
+					</div>
 				</div>
-			) : null}
-			<div>Name: {props.name}</div>
-			<div>Rating: {props.rating} / 5</div>
-			<button onClick={() => props.register(props.id)}>Current count: {props.count}</button>
+			</div>
 		</div>
 	)
 
