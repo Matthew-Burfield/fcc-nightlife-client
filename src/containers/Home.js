@@ -12,10 +12,10 @@ import CityTwo from '../components/CityTwo'
 import CityThree from '../components/CityThree'
 import CityFour from '../components/CityFour'
 import Diners from '../components/Diners'
-import Star from '../components/Star'
+// import Star from '../components/Star'
 
-import nachos from '../assets/nachos.png'
-import pizza from '../assets/pizza.png'
+import nachosImage from '../assets/nachos.png'
+import pizzaImage from '../assets/pizza.png'
 
 import './home.scss'
 
@@ -25,10 +25,6 @@ const parallaxSpeed = val => ({
 
 const getStyles = (val, top, additionalStyles = {}) =>
 	Object.assign({}, { top: `${top}px` }, parallaxSpeed(val), additionalStyles)
-
-// Pre download the images
-const nachosImage = new Image(nachos)
-const pizzaImage = new Image(pizza)
 
 class Home extends Component {
 	constructor(props) {
