@@ -92,7 +92,7 @@ class Home extends Component {
 						/>
 					</div>
 					<div className="restaurantInfo">
-						<div className="restaurantName">Name: {props.name}</div>
+						<div className="restaurantName">{props.name}</div>
 						<div className="innerContainer">
 							<StarRating className="starRating" value={props.rating} edit={false} />
 							<button className="restaurantButton" onClick={() => props.register(props.id)}>
